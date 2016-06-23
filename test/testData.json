@@ -1,0 +1,98 @@
+{
+  "privSignKey1": "13fe1b340146ea2ff6d7d395d881e6a9fb02d49553fccc4a029014630a5353e6",
+  "privSignKey2": "41e0568d6c95f23e9e8e3a59d289c3888b92f11caa3f0b8438628d0912c0928b",
+  "pubSignKey1_valid": "020313f206e46575c98ed35658378fc76abfbad99900a05b0093a743a5d79dff67",
+  "pubSignKey1_invalid": "7452adf206e46575c98ed35658378fc76abfbad99900a05b0093a743a5d79dff67",
+  "profile": {
+    "@context": "http://schema.org",
+    "@type": "Person",
+    "name": "Alice",
+    "image": [{
+      "@type": "ImageObject",
+      "name": "avatar",
+      "contentUrl" : "/ipfs/QmYD4LpT4HGhrLWnZLk5oDiR5D9ppKeznFTjXNN8y3LBKk"
+    }]
+  },
+  "additionalAttribute": {
+    "residence": "Wonderland"
+  },
+  "replacementAttribute": {
+    "residence": "Reality"
+  },
+  "validToken": {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJjbGFpbSI6eyJuYW1lIjoiQWxpY2UifSwic3ViamVjdCI6eyJ1cG9ydElkIjoiMHhjZDY0Y2UyODMyZmZiZjFkZDg2MzE2NDE4YjY0YWQ0YmNmYzMwMTM2IiwicHVibGljS2V5IjoiUHVibGljIGtleSBjYW4gYmUgcmVhZCBmcm9tIHB1YlNpZ25LZXkgcmVjb3JkLiJ9LCJpc3N1ZXIiOnsicHVibGljS2V5IjoiMDIwMzEzZjIwNmU0NjU3NWM5OGVkMzU2NTgzNzhmYzc2YWJmYmFkOTk5MDBhMDViMDA5M2E3NDNhNWQ3OWRmZjY3IiwidXBvcnRJZCI6IjB4Y2Q2NGNlMjgzMmZmYmYxZGQ4NjMxNjQxOGI2NGFkNGJjZmMzMDEzNiJ9LCJpc3N1ZWRBdCI6IjIwMTYtMDYtMjNUMTI6NTY6NDYuNjA0WiIsImV4cGlyZXNBdCI6IjIwMTctMDYtMjNUMTI6NTY6NDYuNjA0WiJ9.j0cYNsnAn7LSgTWgRmGLI2QNNLwM7JYugjTy8vbPeeC41wytPFJIAh12eoHRILdUF-BNZQSoH4JkA_Yz0t9Cyw",
+    "decodedToken":{
+      "header":{
+        "typ":"JWT",
+        "alg":"ES256K"
+      },
+      "payload":{
+        "claim":{
+          "name":"Alice"
+        },"subject":{
+        "uportId":"0xcd64ce2832ffbf1dd86316418b64ad4bcfc30136",
+        "publicKey":"Public key can be read from pubSignKey record."
+        },
+        "issuer":{
+          "publicKey":"020313f206e46575c98ed35658378fc76abfbad99900a05b0093a743a5d79dff67",
+          "uportId":"0xcd64ce2832ffbf1dd86316418b64ad4bcfc30136"
+        },
+        "issuedAt":"2016-06-23T12:56:46.604Z",
+        "expiresAt":"2017-06-23T12:56:46.604Z"
+      },
+      "signature":"j0cYNsnAn7LSgTWgRmGLI2QNNLwM7JYugjTy8vbPeeC41wytPFJIAh12eoHRILdUF-BNZQSoH4JkA_Yz0t9Cyw"
+    },
+    "encrypted":false
+  },
+  "invalidTokens": [
+    {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJjbGFpbSI6eyJuYW1lIjoiQWxpY2UifSwic3ViamVjdCI6eyJ1cG9ydElkIjoiMHhjZDY0Y2UyODMyZmZiZjFkZDg2MzE2NDE4YjY0YWQ0YmNmYzMwMTM2IiwicHVibGljS2V5IjoiUHVibGljIGtleSBjYW4gYmUgcmVhZCBmcm9tIHB1YlNpZ25LZXkgcmVjb3JkLiJ9LCJpc3N1ZXIiOnsicHVibGljS2V5IjoiMDIwMzEzZjIwNmU0NjU3NWM5OGVkMzU2NTgzNzhmYzc2YWJmYmFkOTk5MDBhMDViMDA5M2E3NDNhNWQ3OWRmZjY3IiwidXBvcnRJZCI6IjB4Y2Q2NGNlMjgzMmZmYmYxZGQ4NjMxNjQxOGI2NGFkNGJjZmMzMDEzNiJ9LCJpc3N1ZWRBdCI6IjIwMTYtMDYtMjNUMTI6NTY6NDYuNjA0WiIsImV4cGlyZXNBdCI6IjIwMTctMDYtMjNUMTI6NTY6NDYuNjA0WiJ9.j0cYNsnAn7LSgTWgRmGLI2QNNLwM7JYugjTy8vbPeeC41wytPFJIAh12eoHRILdUF-BNZQSoH4JkA_Yz0t9Cyw",
+      "decodedToken":{
+        "header":{
+          "typ":"JWT",
+          "alg":"ES256K"
+        },
+        "payload":{
+          "claim":{
+            "name":"Alice"
+          },"subject":{
+          "uportId":"0xcd64ce2832ffbf1dd86316418b64ad4bcfc30136",
+          "publicKey":"Public key can be read from pubSignKey record."
+          },
+          "issuer":{
+            "publicKey":"987653f206e46575c98ed35658378fc76abfbad99900a05b0093a743a5d79dff67",
+            "uportId":"0xcd64ce2832ffbf1dd86316418b64ad4bcfc30136"
+          },
+          "issuedAt":"2016-06-23T12:56:46.604Z",
+          "expiresAt":"2017-06-23T12:56:46.604Z"
+        },
+        "signature":"j0cYNsnAn7LSgTWgRmGLI2QNNLwM7JYugjTy8vg3xHS45wytPFJIAh12eoHRILdUF-BNZQSoH4JkA_Yz0t9Cyw"
+      },
+      "encrypted":false
+    }, {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.efEADGFpbSI6eyJuYW1lIjoiQWxpY2UifSwic3ViamVjdCI6eyJ1cG9ydElkIjoiMHhjZDY0Y2UyODMyZmZiZjFkZDg2MzE2NDE4YjY0YWQ0YmNmYzMwMTM2IiwicHVibGljS2V5IjoiUHVibGljIGtleSBjYW4gYmUgcmVhZCBmcm9tIHB1YlNpZ25LZXkgcmVjb3JkLiJ9LCJpc3N1ZXIiOnsicHVibGljS2V5IjoiMDIwMzEzZjIwNmU0NjU3NWM5OGVkMzU2NTgzNzhmYzc2YWJmYmFkOTk5MDBhMDViMDA5M2E3NDNhNWQ3OWRmZjY3IiwidXBvcnRJZCI6IjB4Y2Q2NGNlMjgzMmZmYmYxZGQ4NjMxNjQxOGI2NGFkNGJjZmMzMDEzNiJ9LCJpc3N1ZWRBdCI6IjIwMTYtMDYtMjNUMTI6NTY6NDYuNjA0WiIsImV4cGlyZXNBdCI6IjIwMTctMDYtMjNUMTI6NTY6NDYuNjA0WiJ9.j0cYNsnAn7LSgTWgRmGLI2QNNLwM7JYugjTy8vbPeeC41wytPFJIAh12eoHRILdUF-BNZQSoH4JkA_Yz0t9Cyw",
+      "decodedToken":{
+        "header":{
+          "typ":"JWT",
+          "alg":"ES256K"
+        },
+        "payload":{
+          "claim":{
+            "name":"Alice"
+          },"subject":{
+          "uportId":"0xcd64ce2832ffbf1dd86316418b64ad4bcfc30136",
+          "publicKey":"Public key can be read from pubSignKey record."
+          },
+          "issuer":{
+            "publicKey":"020313f206e46575c98ed35658378fc76abfbad99900a05b0093a743a5d79dff67",
+            "uportId":"0xcd64ce2832ffbf1dd86316418b64ad4bcfc30136"
+          },
+          "issuedAt":"2016-06-23T12:56:46.604Z",
+          "expiresAt":"2017-06-23T12:56:46.604Z"
+        },
+        "signature":"j0cYNsnAn7LSgTWgRmGLI2QNNLwM7JYugjTy8vbPeeC41wytPFJIAh12eoHRILdUF-BNZQSoH4JkA_Yz0t9Cyw"
+      },
+      "encrypted":false
+    }
+  ]
+}
