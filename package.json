@@ -8,7 +8,7 @@
     "build": "babel lib -d dist",
     "lint": "eslint -c .eslintrc.json lib",
     "docs": "node_modules/.bin/jsdoc --destination docs --verbose lib ",
-    "docs-markdown": "jsdoc2md --template README.hbs lib/*.js > README.md"
+    "docs-markdown": "jsdoc2md --template readme-template.hbs lib/*.js > README.md"
   },
   "author": "",
   "license": "ISC",
@@ -16,18 +16,21 @@
     "bigi": "^1.4.1",
     "bitcoinjs-lib": "^2.2.0",
     "blockstack-profiles": "^0.3.5",
-    "uport-registry": "git@github.com:ConsenSys/uport-registry.git"
+    "uport-registry": "git+ssh://git@github.com:ConsenSys/uport-registry.git"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
-    "babel-cli": "^6.0.0",
     "chai": "^3.5.0",
     "eslint": "^3.1.0",
-    "ether-pudding": "^2.0.0",
-    "mocha": "^2.5.3",
     "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.11.0",
+    "eslint-plugin-jsx-a11y": "^2.0.1",
+    "eslint-plugin-react": "^5.2.2",
+    "ether-pudding": "^2.0.0",
     "jsdoc": "^3.4.0",
-    "jsdoc-to-markdown": "^1.3.6"
+    "jsdoc-to-markdown": "^1.3.6",
+    "mocha": "^2.5.3"
   }
 }
