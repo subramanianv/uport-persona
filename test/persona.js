@@ -1,32 +1,30 @@
-var assert = require('chai').assert;
-var Persona = require('../lib/persona.js');
-var ecpair = require('bitcoinjs-lib').ECPair;
-var bigi = require('bigi');
-var ipfs = require('ipfs-js');
-var ipfsApi = require('ipfs-api');
-var Web3 = require('web3');
-var web3 = new Web3();
-var pudding = require('ether-pudding');
+import {assert} from 'chai';
+import Persona from '../lib/persona.js';
+import {ECPair} from 'bitcoinjs-lib';
+import bigi from 'bigi';;
+import ipfs from 'ipfs-js';
+import ipfsApi from 'ipfs-api';
+import Web3 from 'web3';
+import pudding from 'ether-pudding';
+const web3 = new Web3();
 pudding.setWeb3(web3);
 
-var web3Prov = new web3.providers.HttpProvider('http://localhost:8545');
-var ipfsProv = ipfsApi('localhost', 5001);
+const web3Prov = new web3.providers.HttpProvider('http://localhost:8545');
+const ipfsProv = ipfsApi('localhost', 5001);
 web3.setProvider(web3Prov);
 ipfs.setProvider(ipfsProv);
 
 // Setup for deployment of a new uport registry
-var UportRegistry = require("uport-registry/environments/development/contracts/UportRegistry.sol.js").load(pudding);
+let UportRegistry = require("uport-registry/environments/development/contracts/UportRegistry.sol.js").load(pudding);
 UportRegistry = pudding.whisk({binary: UportRegistry.binary, abi: UportRegistry.abi})
 
-var testData = require('./testData.json');
+import testData from './testData.json';
 
 describe("Persona", function () {
   this.timeout(10000);
 
-  var persona;
-  var claim;
-  var registryAddress;
-  var accounts = web3.eth.accounts;
+  let persona, claim, registryAddress;
+  let accounts = web3.eth.accounts;
 
   it("Correctly verifies tokens", (done) => {
     assert.isTrue(Persona.isTokenValid(testData.validToken));
@@ -37,7 +35,7 @@ describe("Persona", function () {
   });
 
   it("Correctly converts private keys to public keys", (done) => {
-    var pubSignKey = Persona.privateKeyToPublicKey(testData.privSignKey1);
+    const pubSignKey = Persona.privateKeyToPublicKey(testData.privSignKey1);
     assert.equal(pubSignKey, testData.pubSignKey1_valid);
     assert.notEqual(pubSignKey, testData.pubSignKey1_invalid);
     done();
@@ -58,7 +56,7 @@ describe("Persona", function () {
       persona.getAllClaims().forEach((token) => {
         assert.isTrue(Persona.isTokenValid(token), "Should not generate invalid tokens.");
       });
-      var pubSignKey = persona.getPublicSigningKey();
+      const pubSignKey = persona.getPublicSigningKey();
       assert.equal(Persona.privateKeyToPublicKey(testData.privSignKey1), pubSignKey);
       done();
     }).catch(done);
@@ -84,7 +82,7 @@ describe("Persona", function () {
   });
 
   it("Correctly returns requested claim", (done) => {
-    var token = persona.getClaims("name")[0];
+    let token = persona.getClaims("name")[0];
     assert.equal(token.decodedToken.payload.claim.name, testData.profile.name);
     token = persona.getClaims("dontExist")[0];
     assert.isUndefined(token);
@@ -100,9 +98,9 @@ describe("Persona", function () {
 
   it("Adds attribute correctly and updates registry", (done) => {
     // Add a new self signed attribute
-    var key = Object.keys(testData.additionalAttribute)[0];
+    const key = Object.keys(testData.additionalAttribute)[0];
     persona.addAttribute(testData.additionalAttribute, testData.privSignKey1).then(() => {
-      var tokens = persona.getClaims(key);
+      const tokens = persona.getClaims(key);
       assert.equal(tokens.length, 1, "Only one token should have been added.");
       assert.isTrue(Persona.isTokenValid(tokens[0]));
       // Check that registry is updated
@@ -120,9 +118,9 @@ describe("Persona", function () {
 
   it("Adds claim correctly", (done) => {
     // Add standalone claim
-    var key = Object.keys(testData.additionalAttribute)[0];
+    const key = Object.keys(testData.additionalAttribute)[0];
     persona.addClaim(claim).then(() => {
-      var tokens = persona.getClaims(key);
+      const tokens = persona.getClaims(key);
       assert.equal(tokens.length, 2, "There should be 2 tokens added.");
       assert.isTrue(Persona.isTokenValid(tokens[0]));
       assert.isTrue(Persona.isTokenValid(tokens[1]));
@@ -131,7 +129,7 @@ describe("Persona", function () {
   });
 
   it("Reject invalid claim", (done) => {
-    var claimAdded;
+    let claimAdded;
     persona.addClaim(testData.invalidTokens[0]).then(() => {
       claimAdded = true;
     }).catch((err) => {
@@ -146,7 +144,7 @@ describe("Persona", function () {
     // replacing an attribute that has two attestations should remove
     // the two old attestations.
     // In this test we raplace the additionalAttribute.
-    var key = Object.keys(testData.additionalAttribute)[0];
+    const key = Object.keys(testData.additionalAttribute)[0];
     persona.replaceAttribute(testData.replacementAttribute, testData.privSignKey1).then(() => {
       var tokens = persona.getClaims(key);
       assert.equal(tokens.length, 1, "Only one token should be present.");
@@ -154,7 +152,7 @@ describe("Persona", function () {
       // Check that registry is updated
       return persona.load();
     }).then(() => {
-      var p = persona.getProfile();
+      const p = persona.getProfile();
       delete p.pubSignKey;
       delete p.pubEncKey;
       assert(p[key], testData.replacementAttribute[key], "New attribute should be present");
@@ -165,9 +163,9 @@ describe("Persona", function () {
   });
 
   it("Removes attribute correctly", (done) => {
-    var attrName = Object.keys(testData.additionalAttribute)[0];
+    const attrName = Object.keys(testData.additionalAttribute)[0];
     persona.deleteAttribute(attrName, testData.privSignKey1).then(() => {
-      var tokens = persona.getClaims(attrName);
+      const tokens = persona.getClaims(attrName);
       assert.equal(tokens.length, 0, "No token should be present.");
       // Check that registry is updated
       return persona.load();
