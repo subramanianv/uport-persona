@@ -1,5 +1,48 @@
 # uPort Persona
 A library for creating, updating and reading attributes and claims on uport personas. It's intended as an easy interface to the uport-registry, allowing developers to focus on the actual data instead of the datastructure of the object stored in the registry.
+## Example usage
+### Basic information viewing
+For each persona you want to interact with you have to create a separate instance of the Persona class.
+```
+// the address of the persona you want to interact with
+var myAddress = "0x123...";
+var p = new Persona(myAddress);
+var ipfsProvider = ipfsApi(<hostname>, <port>);
+p.setProviders(ipfsProvider, web3.currentProvider);
+p.load().then(() => {...});
+```
+Once instantiated you can start by getting the current profile:
+```
+var profile = p.getProfile();
+```
+The `profile` is in JSON format containing all attributes associated with the persona.
+
+### Viewing attestations
+An attestation, also called a claim is the basic building block of the information associated with a persona. By default all attributes are self signed by the persona that it's associated with. But an attribute can have multiple claims, meaning that several parties have signed it. The claims are in the same format as [blockstack-profiles](https://github.com/blockstack/blockstack-profiles-js).
+To get all claims associated with the persona:
+```
+var claims = p.getAllCalims();
+```
+
+You can also get all claims to a specific attribute:
+```
+var claims = p.getCalims("MyAttribute");
+```
+
+### Signing attributes as a third party
+As a third party you would like to attest to the fact that the given persona has a specific attribute. By signing an attribute you create a claim.
+```
+var thirdPartyPrivKey = ...
+var thirdPartyAddress = "0x...";
+var claim = p.signAttribute("MyAttribute", thirdPartyPrivKey, thirdPartyAddress);
+```
+
+This new claim can now be added to the persona (only by the persona itself).
+```
+p.addClaim(claim);
+```
+Note that `addClaim` can only be successfully called if you can sign transactions as the address of persona `p`.
+
 
 ## Running tests
 Make sure that you have ipfs and testrpc running, then run:
