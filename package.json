@@ -2,10 +2,11 @@
   "name": "uport-persona",
   "version": "1.0.0",
   "description": "A library for creating, updating and reading attributes and claims on uport personas.",
-  "main": "lib/persona.js",
+  "main": "dist/persona.js",
   "scripts": {
     "test": "mocha --reporter spec --compilers js:babel-register test/*.js",
     "build": "babel lib -d dist",
+    "install": "npm run build",
     "lint": "eslint -c .eslintrc.json lib",
     "docs": "node_modules/.bin/jsdoc --destination docs --verbose lib ",
     "docs-markdown": "jsdoc2md --template readme-template.hbs lib/*.js > README.md"
