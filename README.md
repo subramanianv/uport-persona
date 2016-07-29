@@ -21,12 +21,12 @@ The `profile` is in JSON format containing all attributes associated with the pe
 An attestation, also called a claim is the basic building block of the information associated with a persona. By default all attributes are self signed by the persona that it's associated with. But an attribute can have multiple claims, meaning that several parties have signed it. The claims are in the same format as [blockstack-profiles](https://github.com/blockstack/blockstack-profiles-js).
 To get all claims associated with the persona:
 ```
-var claims = p.getAllCalims();
+var claims = p.getAllClaims();
 ```
 
 You can also get all claims to a specific attribute:
 ```
-var claims = p.getCalims("MyAttribute");
+var claims = p.getClaims("MyAttribute");
 ```
 
 ### Signing attributes as a third party
