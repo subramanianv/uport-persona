@@ -140,6 +140,34 @@ describe("Persona", function () {
     }).catch(done);
   });
 
+  it("Adds claims correctly", (done) => {
+    const claimList = [claim, claim, claim]
+    const key = Object.keys(testData.additionalAttribute)[0];
+    persona.addClaims(claimList).then(() => {
+      const tokens = persona.getClaims(key);
+      assert.equal(tokens.length, 5, "There should be 2 tokens added.");
+      assert.isTrue(Persona.isTokenValid(tokens[0]));
+      assert.isTrue(Persona.isTokenValid(tokens[1]));
+      assert.isTrue(Persona.isTokenValid(tokens[2]));
+      assert.isTrue(Persona.isTokenValid(tokens[3]));
+      assert.isTrue(Persona.isTokenValid(tokens[4]));
+      done();
+    }).catch(done);
+  });
+
+  it("Reject invalid claim in list of claims", (done) => {
+    let claimAdded;
+    const claimList = [claim, testData.invalidTokens[0], claim]
+    persona.addClaims(claimList).then(() => {
+      claimAdded = true;
+    }).catch((err) => {
+      claimAdded = false;
+    }).then(() => {
+      assert.isFalse(claimAdded, "Should not add invalid Claim.");
+      done();
+    }).catch(done);
+  });
+
   it("Replaces attribute correctly", (done) => {
     // replacing an attribute that has two attestations should remove
     // the two old attestations.
