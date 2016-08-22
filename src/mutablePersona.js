@@ -25,7 +25,7 @@ class MutablePersona extends Persona {
    *
    *  @memberof MutablePersona
    *  @method          writeToRegistry
-   *  @return          {Promise<JSON, Error>}            A promise that returns all tokens registered to the persona. Encrypted tokens would be included here. Or an Error if rejected.
+   *  @return          {Promise<String, Error>}            A promise that returns the txHash of the transaction updating the registry. Or an Error if rejected.
    */
   writeToRegistry() {
     return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
