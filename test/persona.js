@@ -21,7 +21,7 @@ UportRegistry = pudding.whisk({binary: UportRegistry.binary, abi: UportRegistry.
 import testData from './testData.json';
 
 describe("Persona", function () {
-  this.timeout(10000);
+  this.timeout(30000);
 
   let persona, claim, registryAddress;
   let accounts = web3.eth.accounts;
@@ -44,8 +44,7 @@ describe("Persona", function () {
   it("Creates a persona object", (done) => {
     UportRegistry.new(accounts[0], {from: accounts[0]}).then((uportReg) => {
       registryAddress = uportReg.address;
-      persona = new Persona(accounts[0], registryAddress);
-      persona.setProviders(ipfsProv, web3Prov);
+      persona = new Persona(accounts[0], ipfsProv, web3Prov, registryAddress);
       assert.equal(persona.address, accounts[0]);
       done();
     }).catch(done);
@@ -65,8 +64,7 @@ describe("Persona", function () {
   it("Correctly loads tokenRecords from uport registry", (done) => {
     var tmpRecords = persona.getAllClaims();
     persona = null;
-    persona = new Persona(accounts[0], registryAddress);
-    persona.setProviders(ipfsProv, web3Prov);
+    persona = new Persona(accounts[0], ipfsProv, web3Prov, registryAddress);
     persona.load().then(() => {
       assert.deepEqual(tmpRecords, persona.getAllClaims());
       done();
