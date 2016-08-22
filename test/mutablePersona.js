@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import MuteablePersona from '../lib/mutablePersona.js';
+import MutablePersona from '../lib/mutablePersona.js';
 import {ECPair} from 'bitcoinjs-lib';
 import bigi from 'bigi';;
 import ipfs from 'ipfs-js';
@@ -26,7 +26,7 @@ describe("Persona", function () {
   let accounts = web3.eth.accounts;
 
   it("Correctly verifies tokens", (done) => {
-    let persona = new MuteablePersona("address")
+    let persona = new MutablePersona("address")
     //console.log(persona)
     persona.saveAttributes()
     //assert.isTrue(Persona.isTokenValid(testData.validToken));
