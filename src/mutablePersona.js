@@ -96,7 +96,7 @@ class MutablePersona extends Persona {
    */
   replaceAttribute(attribute, privSignKey) {
     const attributeName = Object.keys(attribute)[0];
-    this.tokenRecords = this.tokenRecords.filter(notMatchesAttributeName(attributeName));
+    this.removeAttribute(attributeName);
     this.addAttribute(attribute, privSignKey);
   }
 
@@ -109,7 +109,15 @@ class MutablePersona extends Persona {
    */
   removeAttribute(attributeName) {
     this.tokenRecords = this.tokenRecords.filter(notMatchesAttributeName(attributeName));
-    return this.saveAttributes();
+  }
+
+  setPublicSigningKey(privSignKey) {
+    let pub = Persona.privateKeyToPublicKey(privSignKey);
+    this.replaceAttribute({'pubSignKey': pub}, privSignKey);
+  }
+
+  setPublicEncryptionKey(pubEncKey, privSignKey) {
+    this.replaceAttribute({'pubEncKey': pubEncKey}, privSignKey);
   }
 }
 

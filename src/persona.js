@@ -104,7 +104,6 @@ class Persona {
    *  @method          getPublicSigningKey
    *  @return          {String}
    */
-  //  TODO: are these keys strings?
   getPublicSigningKey() {
     return this.getClaims('pubSignKey')[0].decodedToken.payload.claim.pubSignKey;
   }
