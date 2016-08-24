@@ -13,8 +13,8 @@ class MutablePersona extends Persona {
    *  @param           {String}             [registryAddress='0xa9be82e93628abaac5ab557a9b3b02f711c0151c']      the uport-registry address to use.
    *  @return          {Object}             self
    */
-  constructor(proxyAddress, registryAddress) {
-    super(proxyAddress, registryAddress);
+  constructor(proxyAddress, ipfs, web3Provider, registryAddress) {
+    super(proxyAddress, ipfs, web3Provider, registryAddress);
   }
 
   /**
@@ -27,9 +27,9 @@ class MutablePersona extends Persona {
    *  @method          writeToRegistry
    *  @return          {Promise<String, Error>}            A promise that returns the txHash of the transaction updating the registry. Or an Error if rejected.
    */
-  writeToRegistry() {
-    return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
-  }
+  //writeToRegistry() {
+    //return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
+  //}
 
   /**
    *  Add a signed claim to this persona. This should be used to add tokens signed by third parties.
@@ -68,7 +68,7 @@ class MutablePersona extends Persona {
   removeClaim(token) {
     let idx = this.tokenRecords.indexOf(token);
     if (idx === -1) {
-      return Promise.reject("No such token associated with this persona.");
+      throw new Error("No such token associated with this persona.");
     }
     this.tokenRecords.splice(idx);
   }
@@ -108,7 +108,7 @@ class MutablePersona extends Persona {
    *  @param           {Object}                     attribute          the attribute to add, in the format {attrName: attr}
    */
   removeAttribute(attributeName) {
-    this.tokenRecords = this.tokenRecords.filter(notMatchesAttributeName(attributeName));
+    this.tokenRecords = this.tokenRecords.filter(Persona.notMatchesAttributeName(attributeName));
   }
 
   setPublicSigningKey(privSignKey) {

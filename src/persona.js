@@ -6,9 +6,6 @@ import uportRegistry from 'uport-registry';
 // consensysnet registry address, default for now
 const DEFAULT_REGISTRY_ADDRESS = '0xa9be82e93628abaac5ab557a9b3b02f711c0151c';
 
-// Curried functions for filter
-const matchesAttributeName = (attrName) => (token) => Object.keys(token.decodedToken.payload.claim)[0] === attrName;
-const notMatchesAttributeName = (attrName) => (token) => Object.keys(token.decodedToken.payload.claim)[0] !== attrName;
 
 /** Class representing a persona. */
 class Persona {
@@ -35,14 +32,17 @@ class Persona {
     }
     this.registryAddress = registryAddress || DEFAULT_REGISTRY_ADDRESS
   }
+  writeToRegistry() {
+    return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
+  }
 
   /**
    *  This should be the only function used to get attributes from the uport-registry. This can be overridden in
    *  a subclass.
    *
    *  @memberof Persona
-   *  @method          loadAttributes
-   *  @return          {Promise<JSON, Error>}            A promise that returns all tokens registered to the persona. Encrypted tokens would be included here. Or an Error if rejected.
+   *  @method           loadAttributes
+   *  @return           {Promise<JSON, Error>}            A promise that returns all tokens registered to the persona. Encrypted tokens would be included here. Or an Error if rejected.
    */
   loadAttributes() {
     return this.uportRegistry.getAttributes(this.registryAddress, this.address);
@@ -139,7 +139,7 @@ class Persona {
    *  @return          {JSON}           List of tokens
    */
   getClaims(attributeName) {
-    return this.tokenRecords.filter(matchesAttributeName(attributeName));
+    return this.tokenRecords.filter(Persona.matchesAttributeName(attributeName));
   }
 
   /**
@@ -213,6 +213,14 @@ class Persona {
     const publicKey = ellipticKeyPair.getPublicKeyBuffer().toString('hex');
 
     return publicKey;
+  }
+
+  static matchesAttributeName(attrName) {
+    return (token) => Object.keys(token.decodedToken.payload.claim)[0] === attrName;
+  }
+
+  static notMatchesAttributeName(attrName) {
+    return (token) => Object.keys(token.decodedToken.payload.claim)[0] !== attrName;
   }
 }
 
