@@ -224,12 +224,13 @@ A static function for checking if a token is valid.
 
 <a name="MutablePersona"></a>
 
-## MutablePersona
-Class representing a persona that can be modified. This is a subclass of Persona.
+## MutablePersona ⇐ <code>[Persona](#Persona)</code>
+Class representing a persona that can be modified.
 
 **Kind**: global class  
+**Extends:** <code>[Persona](#Persona)</code>  
 
-* [MutablePersona](#MutablePersona)
+* [MutablePersona](#MutablePersona) ⇐ <code>[Persona](#Persona)</code>
     * [.constructor(address, ipfsProvider, web3Provider, [registryAddress])](#MutablePersona.constructor) ⇒ <code>Object</code>
     * [.writeToRegistry()](#MutablePersona.writeToRegistry) ⇒ <code>Promise.&lt;String, Error&gt;</code>
     * [.addClaim(token)](#MutablePersona.addClaim)

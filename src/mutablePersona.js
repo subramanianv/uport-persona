@@ -1,6 +1,9 @@
 import Persona from './persona'
 
-/** Class representing a persona that can be modified. This is a subclass of Persona. */
+/**
+ * Class representing a persona that can be modified.
+ * @extends Persona
+ * */
 class MutablePersona extends Persona {
 
   /**
