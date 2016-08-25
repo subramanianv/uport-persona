@@ -1,5 +1,5 @@
 // Example persona profile read
-// 
+//
 // node example.js
 
 var Persona = require('./dist/persona.js')
@@ -12,8 +12,7 @@ var web3 = new Web3();
 var web3Prov = new web3.providers.HttpProvider('https://consensysnet.infura.io:8545');
 var ipfsProv = ipfsApi('localhost', 5001);
 
-var persona = new Persona(myAddr);
-persona.setProviders(ipfsProv, web3Prov);
+var persona = new Persona(myAddr, ipfsProv, web3Prov);
 
 persona.load().then(() => {
   console.log(persona.getProfile())
