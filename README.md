@@ -13,7 +13,7 @@ For each persona you want to interact with you have to create a separate instanc
 let myAddress = "0x123...";
 let ipfs = ipfsApi(<hostname>, <port>);
 let p = new Persona(myAddress, ipfs, web3.currentProvider);
-p.load().then(() => {...});
+p.load().then(() => { ... });
 ```
 
 Once instantiated you can start by getting the current profile:
@@ -26,7 +26,7 @@ The `profile` is in JSON format containing all attributes associated with the pe
 An attestation, also called a claim is the basic building block of the information associated with a persona. By default all attributes are self signed by the persona that it's associated with. But an attribute can have multiple claims, meaning that several parties have signed it. The claims are in the same format as [blockstack-profiles](https://github.com/blockstack/blockstack-profiles-js).
 To get all claims associated with the persona:
 ```
-let claims = p.getAllCalims();
+let claims = p.getAllClaims();
 ```
 
 You can also get all claims to a specific attribute:
@@ -44,6 +44,13 @@ let claim = p.signAttribute("MyAttribute", thirdPartyPrivKey, thirdPartyAddress)
 
 ### Modifying a persona
 To modify a persona the `MutablePersona` class needs to be used. It's instantiated in the same way as the `Persona` class. An important thing to note is that `MutablePersona` will make changes locally and only write the changes to the blockchain if the method `writeToRegistry` is called.
+```
+// the address of the persona you want to interact with
+let myAddress = "0x123...";
+let ipfs = ipfsApi(<hostname>, <port>);
+let p = new MutablePersona(myAddress, ipfs, web3.currentProvider);
+p.load().then(() => { ... });
+```
 
 Adding a claim.
 ```
