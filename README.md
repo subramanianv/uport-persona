@@ -229,7 +229,7 @@ Class representing a persona that can be modified. This is a subclass of Persona
     * [.addClaims(tokensList)](#MutablePersona.addClaims)
     * [.removeClaim(tokens)](#MutablePersona.removeClaim)
     * [.addAttribute(attribute, privSignKey)](#MutablePersona.addAttribute)
-    * [.placeAttribute(attribute, privSignKey)](#MutablePersona.placeAttribute)
+    * [.replaceAttribute(attribute, privSignKey)](#MutablePersona.replaceAttribute)
     * [.deleteAttribute(attribute)](#MutablePersona.deleteAttribute)
 
 <a name="MutablePersona.constructor"></a>
@@ -303,9 +303,9 @@ Adds a self signed attribute to the persona. Only to be used if you can send tra
 | attribute | <code>Object</code> | the attribute to add, in the format {attrName: attr} |
 | privSignKey | <code>String</code> | the private signing key of the persona |
 
-<a name="MutablePersona.placeAttribute"></a>
+<a name="MutablePersona.replaceAttribute"></a>
 
-### MutablePersona.placeAttribute(attribute, privSignKey)
+### MutablePersona.replaceAttribute(attribute, privSignKey)
 Removes all tokens having the same attribute name as the given attribute and adds the given attribute. Only to be used if you can send transactions as persona.address.
 
 **Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  

@@ -92,7 +92,7 @@ class MutablePersona extends Persona {
    *  Removes all tokens having the same attribute name as the given attribute and adds the given attribute. Only to be used if you can send transactions as persona.address.
    *
    *  @memberof MutablePersona
-   *  @method          placeAttribute
+   *  @method          replaceAttribute
    *  @param           {Object}                     attribute          the attribute to add, in the format {attrName: attr}
    *  @param           {String}                     privSignKey        the private signing key of the persona
    */
