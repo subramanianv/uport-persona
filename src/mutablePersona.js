@@ -106,18 +106,33 @@ class MutablePersona extends Persona {
    *  Removes all attributes with the same attribute name as the given attribute. Only to be used if you can send transactions as persona.address.
    *
    *  @memberof MutablePersona
-   *  @method          deleteAttribute
+   *  @method          removeAttribute
    *  @param           {Object}                     attribute          the attribute to add, in the format {attrName: attr}
    */
   removeAttribute(attributeName) {
     this.tokenRecords = this.tokenRecords.filter(Persona.notMatchesAttributeName(attributeName));
   }
 
+  /**
+   *  Sets the public signing key of the persona.
+   *
+   *  @memberof MutablePersona
+   *  @method       setPublicSigningKey
+   *  @param        {String}                        privSignKey         the private signing key of the persona
+   */
   setPublicSigningKey(privSignKey) {
     let pub = Persona.privateKeyToPublicKey(privSignKey);
     this.replaceAttribute({'pubSignKey': pub}, privSignKey);
   }
 
+  /**
+   *  Sets the public encryption key of the persona.
+   *
+   *  @memberof MutablePersona
+   *  @method       setPublicencryptionKey
+   *  @param        {String}                        pubEncKey           the public encryption key of the persona
+   *  @param        {String}                        privSignKey         the private signing key of the persona
+   */
   setPublicEncryptionKey(pubEncKey, privSignKey) {
     this.replaceAttribute({'pubEncKey': pubEncKey}, privSignKey);
   }

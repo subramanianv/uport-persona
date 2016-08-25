@@ -230,7 +230,9 @@ Class representing a persona that can be modified. This is a subclass of Persona
     * [.removeClaim(tokens)](#MutablePersona.removeClaim)
     * [.addAttribute(attribute, privSignKey)](#MutablePersona.addAttribute)
     * [.replaceAttribute(attribute, privSignKey)](#MutablePersona.replaceAttribute)
-    * [.deleteAttribute(attribute)](#MutablePersona.deleteAttribute)
+    * [.removeAttribute(attribute)](#MutablePersona.removeAttribute)
+    * [.setPublicSigningKey(privSignKey)](#MutablePersona.setPublicSigningKey)
+    * [.setPublicencryptionKey(pubEncKey, privSignKey)](#MutablePersona.setPublicencryptionKey)
 
 <a name="MutablePersona.constructor"></a>
 
@@ -315,9 +317,9 @@ Removes all tokens having the same attribute name as the given attribute and add
 | attribute | <code>Object</code> | the attribute to add, in the format {attrName: attr} |
 | privSignKey | <code>String</code> | the private signing key of the persona |
 
-<a name="MutablePersona.deleteAttribute"></a>
+<a name="MutablePersona.removeAttribute"></a>
 
-### MutablePersona.deleteAttribute(attribute)
+### MutablePersona.removeAttribute(attribute)
 Removes all attributes with the same attribute name as the given attribute. Only to be used if you can send transactions as persona.address.
 
 **Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  
@@ -325,5 +327,28 @@ Removes all attributes with the same attribute name as the given attribute. Only
 | Param | Type | Description |
 | --- | --- | --- |
 | attribute | <code>Object</code> | the attribute to add, in the format {attrName: attr} |
+
+<a name="MutablePersona.setPublicSigningKey"></a>
+
+### MutablePersona.setPublicSigningKey(privSignKey)
+Sets the public signing key of the persona.
+
+**Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| privSignKey | <code>String</code> | the private signing key of the persona |
+
+<a name="MutablePersona.setPublicencryptionKey"></a>
+
+### MutablePersona.setPublicencryptionKey(pubEncKey, privSignKey)
+Sets the public encryption key of the persona.
+
+**Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| pubEncKey | <code>String</code> | the public encryption key of the persona |
+| privSignKey | <code>String</code> | the private signing key of the persona |
 
 
