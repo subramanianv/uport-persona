@@ -1,4 +1,4 @@
-import Persona from './persona.js';
+import Persona from './persona'
 
 /** Class representing a persona that can be modified. This is a subclass of Persona. */
 class MutablePersona extends Persona {
@@ -15,8 +15,8 @@ class MutablePersona extends Persona {
    *  @param           {String}         [registryAddress='0xa9be82e93628abaac5ab557a9b3b02f711c0151c']      the uport-registry address to use.
    *  @return          {Object}         self
    */
-  constructor(proxyAddress, ipfs, web3Provider, registryAddress) {
-    super(proxyAddress, ipfs, web3Provider, registryAddress);
+  constructor (proxyAddress, ipfs, web3Provider, registryAddress) {
+    super(proxyAddress, ipfs, web3Provider, registryAddress)
   }
 
   /**
@@ -29,7 +29,7 @@ class MutablePersona extends Persona {
    *  @method          writeToRegistry
    *  @return          {Promise<String, Error>}            A promise that returns the txHash of the transaction updating the registry. Or an Error if rejected.
    */
-  writeToRegistry() {
+  writeToRegistry () {
     return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
   }
 
@@ -40,11 +40,11 @@ class MutablePersona extends Persona {
    *  @method          addClaim
    *  @param           {JSON}                     token          the claim to add
    */
-  addClaim(token) {
+  addClaim (token) {
     if (!Persona.isTokenValid(token)) {
-      throw new Error("Token containing claim is invalid, and thus not added.");
+      throw new Error('Token containing claim is invalid, and thus not added.')
     }
-    this.tokenRecords.push(token);
+    this.tokenRecords.push(token)
   }
 
   /**
@@ -54,9 +54,9 @@ class MutablePersona extends Persona {
    *  @method          addClaims
    *  @param           {JSON}                     tokensList          the claims to add
    */
-  addClaims(tokensList) {
+  addClaims (tokensList) {
     for (let token of tokensList) {
-      this.addClaim(token);
+      this.addClaim(token)
     }
   }
 
@@ -67,12 +67,12 @@ class MutablePersona extends Persona {
    *  @method          removeClaim
    *  @param           {JSON}                     tokens          the claims to add
    */
-  removeClaim(token) {
-    let idx = this.tokenRecords.indexOf(token);
+  removeClaim (token) {
+    let idx = this.tokenRecords.indexOf(token)
     if (idx === -1) {
-      throw new Error("No such token associated with this persona.");
+      throw new Error('No such token associated with this persona.')
     }
-    this.tokenRecords.splice(idx);
+    this.tokenRecords.splice(idx)
   }
 
   /**
@@ -83,9 +83,9 @@ class MutablePersona extends Persona {
    *  @param           {Object}                     attribute          the attribute to add, in the format {attrName: attr}
    *  @param           {String}                     privSignKey        the private signing key of the persona
    */
-  addAttribute(attribute, privSignKey) {
-    const token = this.signAttribute(attribute, privSignKey, this.address);
-    this.addClaim(token);
+  addAttribute (attribute, privSignKey) {
+    const token = this.signAttribute(attribute, privSignKey, this.address)
+    this.addClaim(token)
   }
 
   /**
@@ -96,10 +96,10 @@ class MutablePersona extends Persona {
    *  @param           {Object}                     attribute          the attribute to add, in the format {attrName: attr}
    *  @param           {String}                     privSignKey        the private signing key of the persona
    */
-  replaceAttribute(attribute, privSignKey) {
-    const attributeName = Object.keys(attribute)[0];
-    this.removeAttribute(attributeName);
-    this.addAttribute(attribute, privSignKey);
+  replaceAttribute (attribute, privSignKey) {
+    const attributeName = Object.keys(attribute)[0]
+    this.removeAttribute(attributeName)
+    this.addAttribute(attribute, privSignKey)
   }
 
   /**
@@ -109,8 +109,8 @@ class MutablePersona extends Persona {
    *  @method          removeAttribute
    *  @param           {Object}                     attribute          the attribute to add, in the format {attrName: attr}
    */
-  removeAttribute(attributeName) {
-    this.tokenRecords = this.tokenRecords.filter(Persona.notMatchesAttributeName(attributeName));
+  removeAttribute (attributeName) {
+    this.tokenRecords = this.tokenRecords.filter(Persona.notMatchesAttributeName(attributeName))
   }
 
   /**
@@ -120,9 +120,9 @@ class MutablePersona extends Persona {
    *  @method       setPublicSigningKey
    *  @param        {String}                        privSignKey         the private signing key of the persona
    */
-  setPublicSigningKey(privSignKey) {
-    let pub = Persona.privateKeyToPublicKey(privSignKey);
-    this.replaceAttribute({'pubSignKey': pub}, privSignKey);
+  setPublicSigningKey (privSignKey) {
+    let pub = Persona.privateKeyToPublicKey(privSignKey)
+    this.replaceAttribute({'pubSignKey': pub}, privSignKey)
   }
 
   /**
@@ -133,9 +133,9 @@ class MutablePersona extends Persona {
    *  @param        {String}                        pubEncKey           the public encryption key of the persona
    *  @param        {String}                        privSignKey         the private signing key of the persona
    */
-  setPublicEncryptionKey(pubEncKey, privSignKey) {
-    this.replaceAttribute({'pubEncKey': pubEncKey}, privSignKey);
+  setPublicEncryptionKey (pubEncKey, privSignKey) {
+    this.replaceAttribute({'pubEncKey': pubEncKey}, privSignKey)
   }
 }
 
-module.exports = MutablePersona;
+export default MutablePersona

@@ -1,11 +1,10 @@
-import bigi from 'bigi';
-import * as bsProfiles from 'blockstack-profiles';
-import bitcoinjsLib from 'bitcoinjs-lib';
-import uportRegistry from 'uport-registry';
+import bigi from 'bigi'
+import * as bsProfiles from 'blockstack-profiles'
+import bitcoinjsLib from 'bitcoinjs-lib'
+import uportRegistry from 'uport-registry'
 
 // consensysnet registry address, default for now
-const DEFAULT_REGISTRY_ADDRESS = '0xa9be82e93628abaac5ab557a9b3b02f711c0151c';
-
+const DEFAULT_REGISTRY_ADDRESS = '0xa9be82e93628abaac5ab557a9b3b02f711c0151c'
 
 /** Class representing a persona. */
 class Persona {
@@ -22,13 +21,13 @@ class Persona {
    *  @param           {String}         [registryAddress='0xa9be82e93628abaac5ab557a9b3b02f711c0151c']      the uport-registry address to use.
    *  @return          {Object}         self
    */
-  constructor(personaAddress, ipfs, web3Provider, registryAddress) {
-    this.address = personaAddress;
-    this.tokenRecords = [];
-    this.uportRegistry = uportRegistry;
+  constructor (personaAddress, ipfs, web3Provider, registryAddress) {
+    this.address = personaAddress
+    this.tokenRecords = []
+    this.uportRegistry = uportRegistry
     if (ipfs && web3Provider) {
-      this.uportRegistry.setIpfsProvider(ipfs);
-      this.uportRegistry.setWeb3Provider(web3Provider);
+      this.uportRegistry.setIpfsProvider(ipfs)
+      this.uportRegistry.setWeb3Provider(web3Provider)
     }
     this.registryAddress = registryAddress || DEFAULT_REGISTRY_ADDRESS
   }
@@ -41,8 +40,8 @@ class Persona {
    *  @method           loadAttributes
    *  @return           {Promise<JSON, Error>}            A promise that returns all tokens registered to the persona. Encrypted tokens would be included here. Or an Error if rejected.
    */
-  loadAttributes() {
-    return this.uportRegistry.getAttributes(this.registryAddress, this.address);
+  loadAttributes () {
+    return this.uportRegistry.getAttributes(this.registryAddress, this.address)
   }
 
   /**
@@ -53,17 +52,17 @@ class Persona {
    *  @param            {Object}                    A list of claims. If argument is not given the persona will load from the registry.
    *  @return           {Promise<JSON, Error>}      A promise that returns all tokens registered to the persona. Encrypted tokens would be included here. Or an Error if rejected.
    */
-  load(tokens) {
+  load (tokens) {
     if (tokens) {
-      this.tokenRecords = tokens;
-      return Promise.resolve(this.tokenRecords);
+      this.tokenRecords = tokens
+      return Promise.resolve(this.tokenRecords)
     } else {
       return new Promise((accept, reject) => {
         this.loadAttributes().then((tokens) => {
-          this.tokenRecords = tokens;
-          accept(tokens);
-        }).catch(reject);
-      });
+          this.tokenRecords = tokens
+          accept(tokens)
+        }).catch(reject)
+      })
     }
   }
 
@@ -74,24 +73,24 @@ class Persona {
    *  @method           getProfile
    *  @return           {JSON}           profile
    */
-  getProfile() {
+  getProfile () {
     // When encryption is implemented this will only give
     // you the part of the profile you have access to.
-    let profile = {};
+    let profile = {}
 
     this.tokenRecords.map((tokenRecord) => {
-      let decodedToken = null;
+      let decodedToken = null
       try {
-        decodedToken = bsProfiles.verifyTokenRecord(tokenRecord, tokenRecord.decodedToken.payload.issuer.publicKey);
+        decodedToken = bsProfiles.verifyTokenRecord(tokenRecord, tokenRecord.decodedToken.payload.issuer.publicKey)
       } catch (e) {
-        throw new Error(`decodedToken failed: ${e}`);
+        throw new Error(`decodedToken failed: ${e}`)
       }
 
       if (decodedToken !== null) {
-        profile = Object.assign({}, profile, decodedToken.payload.claim);
+        profile = Object.assign({}, profile, decodedToken.payload.claim)
       }
-    });
-    return profile;
+    })
+    return profile
   }
 
   /**
@@ -101,8 +100,8 @@ class Persona {
    *  @method          getPublicSigningKey
    *  @return          {String}
    */
-  getPublicSigningKey() {
-    return this.getClaims('pubSignKey')[0].decodedToken.payload.claim.pubSignKey;
+  getPublicSigningKey () {
+    return this.getClaims('pubSignKey')[0].decodedToken.payload.claim.pubSignKey
   }
 
   /**
@@ -112,8 +111,8 @@ class Persona {
    *  @method          getPublicEncryptionKey
    *  @return          {String}
    */
-  getPublicEncryptionKey() {
-    return this.getClaims('pubEncKey')[0].decodedToken.payload.claim.pubEncKey;
+  getPublicEncryptionKey () {
+    return this.getClaims('pubEncKey')[0].decodedToken.payload.claim.pubEncKey
   }
 
   /**
@@ -123,8 +122,8 @@ class Persona {
    *  @method          getAllClaims
    *  @return          {JSON}           List of tokens
    */
-  getAllClaims() {
-    return this.tokenRecords;
+  getAllClaims () {
+    return this.tokenRecords
   }
 
   /**
@@ -135,8 +134,8 @@ class Persona {
    *  @param           {String}         attributesName         the name of the attribute to check
    *  @return          {JSON}           List of tokens
    */
-  getClaims(attributeName) {
-    return this.tokenRecords.filter(Persona.matchesAttributeName(attributeName));
+  getClaims (attributeName) {
+    return this.tokenRecords.filter(Persona.matchesAttributeName(attributeName))
   }
 
   /**
@@ -149,19 +148,19 @@ class Persona {
    *  @param           {String}           issuerId           the address of the attestor (voluntary, to allow finding info on the attestor from uport-registry)
    *  @return          {Object}           token
    */
-  signAttribute(attribute, privSignKey, issuerId) {
-    const issuerPublicKey = Persona.privateKeyToPublicKey(privSignKey);
+  signAttribute (attribute, privSignKey, issuerId) {
+    const issuerPublicKey = Persona.privateKeyToPublicKey(privSignKey)
 
-    const issuer = {};
-    issuer.publicKey = issuerPublicKey;
+    const issuer = {}
+    issuer.publicKey = issuerPublicKey
     if (issuerId !== undefined) {
-      issuer.uportId = issuerId;
+      issuer.uportId = issuerId
     }
-    const subject = { uportId: this.address };
-    subject.publicKey = 'Public key can be read from pubSignKey record.';
-    const rawToken = bsProfiles.signToken(attribute, privSignKey, subject, issuer);
+    const subject = { uportId: this.address }
+    subject.publicKey = 'Public key can be read from pubSignKey record.'
+    const rawToken = bsProfiles.signToken(attribute, privSignKey, subject, issuer)
 
-    return bsProfiles.wrapToken(rawToken);
+    return bsProfiles.wrapToken(rawToken)
   }
 
   /**
@@ -174,8 +173,8 @@ class Persona {
    *  @param           {String}                 issuerId           the address of the attestor (voluntary, to allow finding info on the attestor from uport-registry)
    *  @return          {Array}                  List of tokens
    */
-  signMultipleAttributes(attributes, privSignKey, issuerId) {
-    return attributes.map((attribute) => this.signAttribute(attribute, privSignKey, issuerId));
+  signMultipleAttributes (attributes, privSignKey, issuerId) {
+    return attributes.map((attribute) => this.signAttribute(attribute, privSignKey, issuerId))
   }
 
   /**
@@ -186,14 +185,13 @@ class Persona {
    *  @param           {Object}           token
    *  @return          {Boolean}
    */
-  static isTokenValid(token) {
+  static isTokenValid (token) {
     try {
-      bsProfiles.verifyTokenRecord(token, token.decodedToken.payload.issuer.publicKey);
+      bsProfiles.verifyTokenRecord(token, token.decodedToken.payload.issuer.publicKey)
     } catch (e) {
-      // console.log(e);
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 
   /**
@@ -204,22 +202,21 @@ class Persona {
    *  @param           {String}                 privateKey
    *  @return          {String}                 publicKey
    */
-  static privateKeyToPublicKey(privateKey) {
-    const privateKeyBigInteger = bigi.fromBuffer(new Buffer(privateKey, 'hex'));
-    const ellipticKeyPair = new bitcoinjsLib.ECPair(privateKeyBigInteger, null, {});
-    const publicKey = ellipticKeyPair.getPublicKeyBuffer().toString('hex');
+  static privateKeyToPublicKey (privateKey) {
+    const privateKeyBigInteger = bigi.fromBuffer(new Buffer(privateKey, 'hex'))
+    const ellipticKeyPair = new bitcoinjsLib.ECPair(privateKeyBigInteger, null, {})
+    const publicKey = ellipticKeyPair.getPublicKeyBuffer().toString('hex')
 
-    return publicKey;
+    return publicKey
   }
 
-  static matchesAttributeName(attrName) {
-    return (token) => Object.keys(token.decodedToken.payload.claim)[0] === attrName;
+  static matchesAttributeName (attrName) {
+    return (token) => Object.keys(token.decodedToken.payload.claim)[0] === attrName
   }
 
-  static notMatchesAttributeName(attrName) {
-    return (token) => Object.keys(token.decodedToken.payload.claim)[0] !== attrName;
+  static notMatchesAttributeName (attrName) {
+    return (token) => Object.keys(token.decodedToken.payload.claim)[0] !== attrName
   }
 }
 
-//export default Persona;
-module.exports = Persona;
+export default Persona

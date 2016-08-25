@@ -1,5 +1,5 @@
-import Persona from './persona.js';
-import MuteablePersona from './mutablePersona.js';
+import Persona from './persona'
+import MuteablePersona from './mutablePersona'
 
 export {
   Persona,

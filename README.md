@@ -31,7 +31,7 @@ let claims = p.getAllClaims();
 
 You can also get all claims to a specific attribute:
 ```
-let claims = p.getCalims("MyAttribute");
+let claims = p.getClaims("MyAttribute");
 ```
 
 ### Signing attributes as a third party
