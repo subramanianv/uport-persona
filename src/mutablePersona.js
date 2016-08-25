@@ -1,6 +1,6 @@
 import Persona from './persona.js';
 
-/** Class representing a persona that can be modified. */
+/** Class representing a persona that can be modified. This is a subclass of Persona. */
 class MutablePersona extends Persona {
 
   /**
@@ -9,9 +9,11 @@ class MutablePersona extends Persona {
    *
    *  @memberof MutablePersona
    *  @method          constructor
-   *  @param           {String}             address                                                             the address of the persona
-   *  @param           {String}             [registryAddress='0xa9be82e93628abaac5ab557a9b3b02f711c0151c']      the uport-registry address to use.
-   *  @return          {Object}             self
+   *  @param           {String}         address                                                             the address of the persona
+   *  @param           {String}         ipfsProvider                                                        an ipfs provider
+   *  @param           {String}         web3Provider                                                        web3 provider
+   *  @param           {String}         [registryAddress='0xa9be82e93628abaac5ab557a9b3b02f711c0151c']      the uport-registry address to use.
+   *  @return          {Object}         self
    */
   constructor(proxyAddress, ipfs, web3Provider, registryAddress) {
     super(proxyAddress, ipfs, web3Provider, registryAddress);
@@ -27,9 +29,9 @@ class MutablePersona extends Persona {
    *  @method          writeToRegistry
    *  @return          {Promise<String, Error>}            A promise that returns the txHash of the transaction updating the registry. Or an Error if rejected.
    */
-  //writeToRegistry() {
-    //return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
-  //}
+  writeToRegistry() {
+    return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
+  }
 
   /**
    *  Add a signed claim to this persona. This should be used to add tokens signed by third parties.

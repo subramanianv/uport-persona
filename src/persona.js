@@ -32,9 +32,6 @@ class Persona {
     }
     this.registryAddress = registryAddress || DEFAULT_REGISTRY_ADDRESS
   }
-  writeToRegistry() {
-    return this.uportRegistry.setAttributes(this.registryAddress, this.tokenRecords, {from: this.address})
-  }
 
   /**
    *  This should be the only function used to get attributes from the uport-registry. This can be overridden in

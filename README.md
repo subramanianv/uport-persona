@@ -218,12 +218,12 @@ A static function for checking if a token is valid.
 <a name="MutablePersona"></a>
 
 ## MutablePersona
-Class representing a persona that can be modified.
+Class representing a persona that can be modified. This is a subclass of Persona.
 
 **Kind**: global class  
 
 * [MutablePersona](#MutablePersona)
-    * [.constructor(address, [registryAddress])](#MutablePersona.constructor) ⇒ <code>Object</code>
+    * [.constructor(address, ipfsProvider, web3Provider, [registryAddress])](#MutablePersona.constructor) ⇒ <code>Object</code>
     * [.writeToRegistry()](#MutablePersona.writeToRegistry) ⇒ <code>Promise.&lt;String, Error&gt;</code>
     * [.addClaim(token)](#MutablePersona.addClaim)
     * [.addClaims(tokensList)](#MutablePersona.addClaims)
@@ -234,7 +234,7 @@ Class representing a persona that can be modified.
 
 <a name="MutablePersona.constructor"></a>
 
-### MutablePersona.constructor(address, [registryAddress]) ⇒ <code>Object</code>
+### MutablePersona.constructor(address, ipfsProvider, web3Provider, [registryAddress]) ⇒ <code>Object</code>
 Class constructor.
  Creates a new persona object. The registryAddress is an optional argument and if not specified will be set to the default consensys testnet uport-registry.
 
@@ -244,6 +244,8 @@ Class constructor.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | address | <code>String</code> |  | the address of the persona |
+| ipfsProvider | <code>String</code> |  | an ipfs provider |
+| web3Provider | <code>String</code> |  | web3 provider |
 | [registryAddress] | <code>String</code> | <code>&#x27;0xa9be82e93628abaac5ab557a9b3b02f711c0151c&#x27;</code> | the uport-registry address to use. |
 
 <a name="MutablePersona.writeToRegistry"></a>
