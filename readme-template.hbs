@@ -12,13 +12,13 @@ For each persona you want to interact with you have to create a separate instanc
 // the address of the persona you want to interact with
 let myAddress = "0x123...";
 let ipfs = ipfsApi(<hostname>, <port>);
-let p = new Persona(myAddress, ipfs, web3.currentProvider);
-p.load().then(() => { ... });
+let persona = new Persona(myAddress, ipfs, web3.currentProvider);
+persona.load().then(() => { ... });
 ```
 
 Once instantiated you can start by getting the current profile:
 ```
-let profile = p.getProfile();
+let profile = persona.getProfile();
 ```
 The `profile` is in JSON format containing all attributes associated with the persona.
 
@@ -26,12 +26,12 @@ The `profile` is in JSON format containing all attributes associated with the pe
 An attestation, also called a claim is the basic building block of the information associated with a persona. By default all attributes are self signed by the persona that it's associated with. But an attribute can have multiple claims, meaning that several parties have signed it. The claims are in the same format as [blockstack-profiles](https://github.com/blockstack/blockstack-profiles-js).
 To get all claims associated with the persona:
 ```
-let claims = p.getAllClaims();
+let claims = persona.getAllClaims();
 ```
 
 You can also get all claims to a specific attribute:
 ```
-let claims = p.getClaims("MyAttribute");
+let claims = persona.getClaims("MyAttribute");
 ```
 
 ### Signing attributes as a third party
@@ -39,7 +39,7 @@ As a third party you would like to attest to the fact that the given persona has
 ```
 let thirdPartyPrivKey = ...
 let thirdPartyAddress = "0x...";
-let claim = p.signAttribute("MyAttribute", thirdPartyPrivKey, thirdPartyAddress);
+let claim = persona.signAttribute("MyAttribute", thirdPartyPrivKey, thirdPartyAddress);
 ```
 
 ### Modifying a persona
@@ -48,24 +48,24 @@ To modify a persona the `MutablePersona` class needs to be used. It's instantiat
 // the address of the persona you want to interact with
 let myAddress = "0x123...";
 let ipfs = ipfsApi(<hostname>, <port>);
-let p = new MutablePersona(myAddress, ipfs, web3.currentProvider);
-p.load().then(() => { ... });
+let persona = new MutablePersona(myAddress, ipfs, web3.currentProvider);
+persona.load().then(() => { ... });
 ```
 
 Adding a claim.
 ```
-p.addClaim(claim);
+persona.addClaim(claim);
 ```
 
 Adding a new attribute.
 ```
 let privKey = ...
-p.addAttribute({ attributeName: attributeValue }, privKey);
+persona.addAttribute({ attributeName: attributeValue }, privKey);
 ```
 
 Write the changes to the blockchain.
 ```
-p.writeToRegistry().then((txHash) => { ... });
+persona.writeToRegistry().then((txHash) => { ... });
 ```
 
 ## Running tests
