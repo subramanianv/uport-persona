@@ -1,7 +1,7 @@
 import Persona from './persona'
-import MuteablePersona from './mutablePersona'
+import MutablePersona from './mutablePersona'
 
 export {
   Persona,
-  MuteablePersona
+  MutablePersona
 }
