@@ -49,7 +49,7 @@ class Persona {
    *
    *  @memberof Persona
    *  @method           load
-   *  @param            {Object}                    A list of claims. If argument is not given the persona will load from the registry.
+   *  @param            {Object}                    claims          A list of claims. If argument is not given the persona will load from the registry.
    *  @return           {Promise<JSON, Error>}      A promise that returns all tokens registered to the persona. Encrypted tokens would be included here. Or an Error if rejected.
    */
   load (tokens) {

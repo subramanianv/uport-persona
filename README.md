@@ -84,7 +84,7 @@ Class representing a persona.
 * [Persona](#Persona)
     * [.constructor(address, ipfsProvider, web3Provider, [registryAddress])](#Persona.constructor) ⇒ <code>Object</code>
     * [.loadAttributes()](#Persona.loadAttributes) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
-    * [.load(A)](#Persona.load) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
+    * [.load(claims)](#Persona.load) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
     * [.getProfile()](#Persona.getProfile) ⇒ <code>JSON</code>
     * [.getPublicSigningKey()](#Persona.getPublicSigningKey) ⇒ <code>String</code>
     * [.getPublicEncryptionKey()](#Persona.getPublicEncryptionKey) ⇒ <code>String</code>
@@ -121,7 +121,7 @@ This should be the only function used to get attributes from the uport-registry.
 **Returns**: <code>Promise.&lt;JSON, Error&gt;</code> - A promise that returns all tokens registered to the persona. Encrypted tokens would be included here. Or an Error if rejected.  
 <a name="Persona.load"></a>
 
-### Persona.load(A) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
+### Persona.load(claims) ⇒ <code>Promise.&lt;JSON, Error&gt;</code>
 This function always have to be called before doing anything else, with the exception of setProfile. This function loads the profile of the persona from the uport-registry into the persona object.
 
 **Kind**: static method of <code>[Persona](#Persona)</code>  
@@ -129,7 +129,7 @@ This function always have to be called before doing anything else, with the exce
 
 | Param | Type | Description |
 | --- | --- | --- |
-| A | <code>Object</code> | list of claims. If argument is not given the persona will load from the registry. |
+| claims | <code>Object</code> | A list of claims. If argument is not given the persona will load from the registry. |
 
 <a name="Persona.getProfile"></a>
 
