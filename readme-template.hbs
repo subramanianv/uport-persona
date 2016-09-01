@@ -71,7 +71,7 @@ persona.writeToRegistry().then((txHash) => { ... });
 ```
 
 ## Running tests
-Make sure that you have ipfs and testrpc running, then run:
+Simply run
 ```
 npm test
 ```
