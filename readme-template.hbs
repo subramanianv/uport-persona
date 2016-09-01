@@ -52,15 +52,17 @@ let persona = new MutablePersona(myAddress, ipfs, web3.currentProvider);
 persona.load().then(() => { ... });
 ```
 
-Adding a claim.
+Creating a profile.
+Note that the first thing that needs to be added to a profile is the public signing key. If this is not done the `addAttribute` method will throw an error.
 ```
-persona.addClaim(claim);
+let myPrivSignKey = ...
+persona.setPublicSigningKey(myPrivSignKey)
+persona.addAttribute({ attributeName: attributeValue }, privKey);
 ```
 
-Adding a new attribute.
+Adding a claim.
 ```
-let privKey = ...
-persona.addAttribute({ attributeName: attributeValue }, privKey);
+persona.addClaim(claim)
 ```
 
 Write the changes to the blockchain.

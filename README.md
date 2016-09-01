@@ -52,15 +52,17 @@ let persona = new MutablePersona(myAddress, ipfs, web3.currentProvider);
 persona.load().then(() => { ... });
 ```
 
-Adding a claim.
+Creating a profile.
+Note that the first thing that needs to be added to a profile is the public signing key. If this is not done the `addAttribute` method will throw an error.
 ```
-persona.addClaim(claim);
+let myPrivSignKey = ...
+persona.setPublicSigningKey(myPrivSignKey)
+persona.addAttribute({ attributeName: attributeValue }, privKey);
 ```
 
-Adding a new attribute.
+Adding a claim.
 ```
-let privKey = ...
-persona.addAttribute({ attributeName: attributeValue }, privKey);
+persona.addClaim(claim)
 ```
 
 Write the changes to the blockchain.
@@ -195,7 +197,7 @@ Same as addAttribute but for a list of attributes.
 | --- | --- | --- |
 | attribute | <code>Array</code> | the attribute to add, in the format [{attrName: attr},...] |
 | privSignKey | <code>String</code> | the private signing key of the attestor |
-| issuerId | <code>String</code> | the address of the attestor (voluntary, to allow finding info on the attestor from uport-registry) |
+| issuerId | <code>String</code> | the ethereum address of the attestor |
 
 <a name="Persona.isTokenValid"></a>
 
@@ -304,7 +306,7 @@ Removes a signed claim from a persona.
 <a name="MutablePersona.addAttribute"></a>
 
 ### MutablePersona.addAttribute(attribute, privSignKey)
-Adds a self signed attribute to the persona. Only to be used if you can send transactions as persona.address.
+Adds a self signed attribute to the persona. Only to be used if you own the pubSignKey of this persona.
 
 **Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  
 
@@ -316,7 +318,7 @@ Adds a self signed attribute to the persona. Only to be used if you can send tra
 <a name="MutablePersona.replaceAttribute"></a>
 
 ### MutablePersona.replaceAttribute(attribute, privSignKey)
-Removes all tokens having the same attribute name as the given attribute and adds the given attribute. Only to be used if you can send transactions as persona.address.
+Removes all tokens having the same attribute name as the given attribute and adds the given attribute.
 
 **Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  
 
@@ -328,7 +330,7 @@ Removes all tokens having the same attribute name as the given attribute and add
 <a name="MutablePersona.removeAttribute"></a>
 
 ### MutablePersona.removeAttribute(attribute)
-Removes all attributes with the same attribute name as the given attribute. Only to be used if you can send transactions as persona.address.
+Removes all attributes with the same attribute name as the given attribute.
 
 **Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  
 

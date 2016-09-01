@@ -8,8 +8,8 @@
     "build": "node_modules/.bin/babel src -d dist",
     "install": "npm run build",
     "lint": "node_modules/.bin/eslint -c .eslintrc.json src",
-    "docs": "node_modules/.bin/jsdoc --destination docs --verbose src ",
-    "docs-markdown": "jsdoc2md --template readme-template.hbs src/*.js > README.md"
+    "docs": "node_modules/.bin/jsdoc --destination docs --verbose lib ",
+    "docs-markdown": "jsdoc2md --template readme-template.hbs lib/*.js > README.md"
   },
   "author": "",
   "license": "ISC",
