@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import Persona from '../src/persona.js'
+import Persona from '../lib/persona.js'
 import testData from './testData.json'
 
 describe('Persona', function () {

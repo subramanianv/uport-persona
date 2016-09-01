@@ -1,6 +1,6 @@
 import {assert} from 'chai'
-import MutablePersona from '../src/mutablePersona.js'
-import Persona from '../src/persona.js'
+import MutablePersona from '../lib/mutablePersona.js'
+import Persona from '../lib/persona.js'
 import testData from './testData.json'
 
 describe('MutablePersona', function () {
