@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import Persona from '../src/persona.js'
+import Persona from '../lib/persona.js'
 import testData from './testData.json'
 
 describe('Persona', function () {
@@ -52,8 +52,10 @@ describe('Persona', function () {
   })
 
   it('Signs attribute correctly', (done) => {
+    // should not be able to create claim without issuerId
+    assert.throws(persona.signAttribute.bind(persona, testData.additionalAttribute, testData.privSignKey2), 'issuerId has to be set')
     // Create a claim that is signed by a third party
-    let claim = persona.signAttribute(testData.additionalAttribute, testData.privSignKey2)
+    let claim = persona.signAttribute(testData.additionalAttribute, testData.privSignKey2, testData.ethereumAddress)
     assert.isTrue(Persona.isTokenValid(claim))
     done()
   })

@@ -1,6 +1,6 @@
 import {assert} from 'chai'
-import MutablePersona from '../src/mutablePersona.js'
-import Persona from '../src/persona.js'
+import MutablePersona from '../lib/mutablePersona.js'
+import Persona from '../lib/persona.js'
 import testData from './testData.json'
 
 describe('MutablePersona', function () {
@@ -10,13 +10,13 @@ describe('MutablePersona', function () {
 
   it('Adds profile as self signed claims', (done) => {
     persona = new MutablePersona('myAddress', null, null)
+    persona.setPublicSigningKey(testData.privSignKey1)
     const tokens = Object.keys(testData.profile).map(attrName => {
       const attribute = {}
       attribute[attrName] = testData.profile[attrName]
 
       return persona.addAttribute(attribute, testData.privSignKey1)
     })
-    persona.setPublicSigningKey(testData.privSignKey1)
     persona.getAllClaims().forEach((token) => {
       assert.isTrue(Persona.isTokenValid(token), 'Should not generate invalid tokens.')
     })
@@ -25,9 +25,11 @@ describe('MutablePersona', function () {
     done()
   })
 
-  it('Adds attribute correctly and updates registry', (done) => {
+  it('Adds attribute correctly', (done) => {
     // Add a new self signed attribute
     const key = Object.keys(testData.additionalAttribute)[0]
+    // should throw when using the wrong key
+    assert.throws(persona.addAttribute.bind(persona, testData.additionalAttribute, testData.privSignKey2))
     persona.addAttribute(testData.additionalAttribute, testData.privSignKey1)
     const tokens = persona.getClaims(key)
     assert.equal(tokens.length, 1, 'Only one token should have been added.')
@@ -44,10 +46,11 @@ describe('MutablePersona', function () {
   it('Adds claim correctly', (done) => {
     // Add standalone claim
     const key = Object.keys(testData.additionalAttribute)[0]
-    claim = persona.signAttribute(testData.additionalAttribute, testData.privSignKey2)
+    claim = persona.signAttribute(testData.additionalAttribute, testData.privSignKey2, testData.ethereumAddress)
+    const numTokensToBe = persona.getClaims(key).length + 1
     persona.addClaim(claim)
     const tokens = persona.getClaims(key)
-    assert.equal(tokens.length, 2, 'There should be 2 tokens added.')
+    assert.equal(tokens.length, numTokensToBe, 'There should be ' + numTokensToBe + ' tokens added.')
     assert.isTrue(Persona.isTokenValid(tokens[0]))
     assert.isTrue(Persona.isTokenValid(tokens[1]))
     done()
@@ -62,9 +65,10 @@ describe('MutablePersona', function () {
   it('Adds claims correctly', (done) => {
     const claimList = [claim, claim, claim]
     const key = Object.keys(testData.additionalAttribute)[0]
+    const numTokensToBe = persona.getClaims(key).length + 3
     persona.addClaims(claimList)
     const tokens = persona.getClaims(key)
-    assert.equal(tokens.length, 5, 'There should be 2 tokens added.')
+    assert.equal(tokens.length, numTokensToBe, 'There should be ' + numTokensToBe + ' tokens added.')
     assert.isTrue(Persona.isTokenValid(tokens[0]))
     assert.isTrue(Persona.isTokenValid(tokens[1]))
     assert.isTrue(Persona.isTokenValid(tokens[2]))
