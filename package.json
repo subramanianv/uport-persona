@@ -9,7 +9,7 @@
     "install": "npm run build",
     "lint": "node_modules/.bin/eslint -c .eslintrc.json lib",
     "docs": "node_modules/.bin/jsdoc --destination docs --verbose lib ",
-    "docs-markdown": "jsdoc2md --template readme-template.hbs lib/*.js > README.md"
+    "gen-readme": "./node_modules/jsdoc-to-markdown/bin/cli.js --template readme-template.hbs lib/*.js > README.md"
   },
   "author": "",
   "license": "ISC",
