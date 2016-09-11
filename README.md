@@ -311,7 +311,7 @@ Removes a signed claim from a persona.
 <a name="MutablePersona.addAttribute"></a>
 
 ### MutablePersona.addAttribute(attribute, privSignKey)
-Adds a self signed attribute to the persona. Only to be used if you own the pubSignKey of this persona.
+Adds a self signed attribute to the persona. Only to be used if you own the privSignKey of this persona.
 
 **Kind**: static method of <code>[MutablePersona](#MutablePersona)</code>  
 
