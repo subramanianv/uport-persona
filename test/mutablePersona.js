@@ -58,7 +58,7 @@ describe('MutablePersona', function () {
 
   it('Reject invalid claim', (done) => {
     let claimAdded = true
-    assert.throws(persona.addClaim.bind(null, testData.invalidClaim[0]), 'Token containing claim is invalid, and thus not added.')
+    assert.throws(persona.addClaim.bind(null, testData.invalidClaim[0]), 'Claim is invalid, and thus not added.')
     done()
   })
 
@@ -80,12 +80,12 @@ describe('MutablePersona', function () {
   it('Reject invalid claim in list of claims', (done) => {
     let claimAdded
     const claimList = [claim, testData.invalidClaim[0], claim]
-    assert.throws(persona.addClaims.bind(persona, claimList), 'Token containing claim is invalid, and thus not added.')
+    assert.throws(persona.addClaims.bind(persona, claimList), 'Claim is invalid, and thus not added.')
     done()
   })
 
   it('Throw error if tyring to remove claims that does not exist', (done) => {
-    assert.throws(persona.removeClaim.bind(persona, testData.validClaim), 'No such token associated with this persona.')
+    assert.throws(persona.removeClaim.bind(persona, testData.validClaim), 'No such claim associated with this persona.')
     done()
   })
 
