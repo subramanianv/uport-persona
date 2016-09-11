@@ -28,7 +28,7 @@ let profile = persona.getProfile();
 The `profile` is in JSON format containing all attributes associated with the persona.
 
 ### Viewing attestations
-An attestation, also called a claim is the basic building block of the information associated with a persona. By default all attributes are self signed by the persona that it's associated with. But an attribute can have multiple claims, meaning that several parties have signed it. The claims are in the same format as [blockstack-profiles](https://github.com/blockstack/blockstack-profiles-js).
+An attestation, also called a claim is the basic building block of the information associated with a persona. By default all attributes are self signed claims created by the persona that it's associated with. But an attribute can have multiple claims, meaning that several parties have signed it. The claims are in the same format as [blockstack-profiles](https://github.com/blockstack/blockstack-profiles-js).
 To get all claims associated with the persona:
 ```js
 let claims = persona.getAllClaims();
@@ -57,7 +57,7 @@ let persona = new MutablePersona(myAddress, ipfs, web3.currentProvider);
 persona.load().then(() => { ... });
 ```
 
-Creating a profile.
+#### Creating a profile.
 Note that the first thing that needs to be added to a profile is the public signing key. If this is not done the `addAttribute` method will throw an error.
 ```js
 let myPrivSignKey = ...
@@ -65,12 +65,13 @@ persona.setPublicSigningKey(myPrivSignKey)
 persona.addAttribute({ attributeName: attributeValue }, privKey);
 ```
 
-Adding a claim.
+#### Adding a claim.
 ```js
 persona.addClaim(claim)
 ```
 
-Write the changes to the blockchain.
+#### Write the changes to the blockchain.
+While making changes to the persona these changes are only stored in the javascript object. To save the changes to the blockchain the following function needs to be called.
 ```js
 persona.writeToRegistry().then((txHash) => { ... });
 ```
