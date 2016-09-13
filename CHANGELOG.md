@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.2.1 - 2016-09-13
+
+* Added license
+
 ## Version 1.2.0 - 2016-09-11
 
 * Validity checks for `signAttribute` and `addAttribute`
