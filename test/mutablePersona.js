@@ -11,11 +11,11 @@ describe('MutablePersona', function () {
   it('Adds profile as self signed claims', (done) => {
     persona = new MutablePersona('myAddress', null, null)
     persona.setPublicSigningKey(testData.privSignKey1)
-    const tokens = Object.keys(testData.profile).map(attrName => {
+    Object.keys(testData.profile).map(attrName => {
       const attribute = {}
       attribute[attrName] = testData.profile[attrName]
 
-      return persona.addAttribute(attribute, testData.privSignKey1)
+      persona.addAttribute(attribute, testData.privSignKey1)
     })
     persona.getAllClaims().forEach((token) => {
       assert.isTrue(Persona.isTokenValid(token), 'Should not generate invalid tokens.')
@@ -57,7 +57,6 @@ describe('MutablePersona', function () {
   })
 
   it('Reject invalid claim', (done) => {
-    let claimAdded = true
     assert.throws(persona.addClaim.bind(null, testData.invalidClaim[0]), 'Claim is invalid, and thus not added.')
     done()
   })
@@ -78,7 +77,6 @@ describe('MutablePersona', function () {
   })
 
   it('Reject invalid claim in list of claims', (done) => {
-    let claimAdded
     const claimList = [claim, testData.invalidClaim[0], claim]
     assert.throws(persona.addClaims.bind(persona, claimList), 'Claim is invalid, and thus not added.')
     done()

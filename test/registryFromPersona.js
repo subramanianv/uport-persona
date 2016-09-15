@@ -18,6 +18,9 @@ describe('Read and write to registry from Persona and MutablePersona', function 
 
   before((done) => {
     startProviders((err, provs) => {
+      if (err) {
+        throw new Error(err)
+      }
       web3Prov = provs.web3Provider
       web3.setProvider(web3Prov)
       ipfsProv = provs.ipfsProvider
@@ -27,6 +30,9 @@ describe('Read and write to registry from Persona and MutablePersona', function 
       UportRegistry = pudding.whisk({binary: UportRegistry.binary, abi: UportRegistry.abi})
 
       web3.eth.getAccounts((err, accs) => {
+        if (err) {
+          throw new Error(err)
+        }
         accounts = accs
         done()
       })
