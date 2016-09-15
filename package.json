@@ -1,6 +1,6 @@
 {
   "name": "uport-persona",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A library for creating, updating and reading attributes and claims on uport personas.",
   "main": "dist/index.js",
   "scripts": {
