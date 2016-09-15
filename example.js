@@ -2,11 +2,11 @@
 //
 // node example.js
 
-let Persona = require('./dist/persona.js')
+let Persona = require('./dist/persona.js').default
 let Web3 = require('web3')
 let ipfsApi = require('ipfs-api')
 
-let myAddr = '0xb66c8fdb7496feb8fc188ebc6c93aae9e7ec46a3'
+let myAddr = '0xbfe12cb358b9312fa28bb82cc48624efad314c1d'
 
 let web3 = new Web3()
 let web3Prov = new web3.providers.HttpProvider('https://consensysnet.infura.io:8545')
