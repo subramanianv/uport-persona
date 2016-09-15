@@ -1,9 +1,13 @@
 # Changelog
 
+## Version 1.2.3 - 2016-09-15
+
+* Fixed builds
+
 ## Version 1.2.2 - 2016-09-15
 
 * example.js should now work
-* using standardjs
+* Using standardjs
 
 ## Version 1.2.1 - 2016-09-13
 
