@@ -2,6 +2,10 @@
 
 ## Version 1.2.3 - 2016-09-15
 
+* Include dist folder
+
+## Version 1.2.3 - 2016-09-15
+
 * Fixed builds
 
 ## Version 1.2.2 - 2016-09-15
