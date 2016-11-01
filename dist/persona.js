@@ -99,7 +99,7 @@ var Persona = function () {
           _this.loadAttributes().then(function (tokens) {
             _this.tokenRecords = tokens;
             resolve(tokens);
-          });
+          }, reject);
         });
       }
     }
