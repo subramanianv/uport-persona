@@ -45,8 +45,8 @@ var MutablePersona = function (_Persona) {
      *  @method          writeToRegistry
      *  @return          {Promise<String, Error>}            A promise that returns the txHash of the transaction updating the registry. Or an Error if rejected.
      */
-    value: function writeToRegistry(personaAddress) {
-      return this.uportRegistry.setAttributes(this.registryAddress, personaAddress, this.tokenRecords, { from: this.address });
+    value: function writeToRegistry(personaAddress, owner) {
+      return this.uportRegistry.setAttributes(this.registryAddress, personaAddress, this.tokenRecords, { from: owner || this.address });
     }
 
     /**
