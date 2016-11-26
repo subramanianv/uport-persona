@@ -53,7 +53,7 @@
     "bigi": "1.4.2",
     "bitcoinjs-lib": "2.3.0",
     "blockstack-profiles": "git://github.com/subramanianv/blockstack-profiles-js.git",
-    "uport-registry": "git://github.com/subramanianv/uport-registry.git"
+    "uport-registry": "git://github.com/subramanianv/uport-registry.git#hack"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
